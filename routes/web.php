@@ -22,3 +22,4 @@ Route::get(
 )->where('id', '[0-9]+');
 Route::get('/produtos/novo', 'ProdutoController@novo');
 Route::post('/produtos/adiciona', 'ProdutoController@adiciona');
+Route::get('/produtos/listaJson', 'ProdutoController@listaJson');
