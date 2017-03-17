@@ -4,6 +4,7 @@ namespace estoque\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use estoque\Produto;
+use estoque\Http\Requests\ProdutoRequest;
 use Request;
 
 class ProdutoController extends Controller {
@@ -34,16 +35,16 @@ class ProdutoController extends Controller {
     	return view('produto/formulario');
     }
 
-    public function adiciona()
+    public function adiciona(ProdutoRequest $requrest)
     {
-        if(empty(Request::input('id'))){
-            Produto::create(Request::all());
+        if(empty($request->input('id'))){
+            Produto::create($request->all());
         } else {
-            $produto = Produto::find(Request::input('id'));
-            $produto->nome = Request::input('nome');
-            $produto->descricao = Request::input('descricao');
-            $produto->valor = Request::input('valor');
-            $produto->tamanho = Request::input('tamanho');
+            $produto = Produto::find($request->input('id'));
+            $produto->nome = $request->input('nome');
+            $produto->descricao = $request->input('descricao');
+            $produto->valor = $request->input('valor');
+            $produto->tamanho = $request->input('tamanho');
             $produto->save();
         }
 
