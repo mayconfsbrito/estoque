@@ -14,9 +14,20 @@
         <td>{{$p->valor}}</td>
         <td>{{$p->descricao or 'nenhuma descrição informada'}}</td>
         <td>{{$p->quantidade}}</td>
+        <td>{{$p->tamanho}}</td>
         <td>
           <a href="/produtos/mostra/{{$p->id}}">
             <span class="glyphicon glyphicon-search"></span>
+          </a>
+        </td>
+        <td>
+          <a href="/produtos/alterar/{{$p->id}}">
+            <span class="glyphicon glyphicon-edit"></span>
+          </a>
+        </td>
+        <td>
+          <a href="/produtos/remove/{{$p->id}}">
+            <span class="glyphicon glyphicon-trash"></span>
           </a>
         </td>
       </tr>

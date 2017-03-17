@@ -20,6 +20,12 @@ Route::get(
 	'/produtos/mostra/{id}',
 	'ProdutoController@mostra'
 )->where('id', '[0-9]+');
+Route::get(
+	'/produtos/alterar/{id}',
+	'ProdutoController@alterar'
+)->where('id', '[0-9]+');
 Route::get('/produtos/novo', 'ProdutoController@novo');
 Route::post('/produtos/adiciona', 'ProdutoController@adiciona');
 Route::get('/produtos/listaJson', 'ProdutoController@listaJson');
+Route::get('/produtos/remove/{id}', 'ProdutoController@remove')
+	->where('id', '[0-9]+');
