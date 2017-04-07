@@ -15,6 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('home', 'HomeController@index');
+
 Route::get('/produtos', 'ProdutoController@lista');
 Route::get(
 	'/produtos/mostra/{id}',
@@ -29,3 +31,4 @@ Route::post('/produtos/adiciona', 'ProdutoController@adiciona');
 Route::get('/produtos/listaJson', 'ProdutoController@listaJson');
 Route::get('/produtos/remove/{id}', 'ProdutoController@remove')
 	->where('id', '[0-9]+');
+Route::get('/login', 'LoginController@login');

@@ -16,6 +16,13 @@
     </div>
 
       <ul class="nav navbar-nav navbar-right">
+        @if (Auth::guest())
+          <li><a href="/auth/login">Login</a></li>
+          <li><a href="/auth/register">Register</a></li>
+        @else
+          <li>{{ Auth::user()->name }} </li>
+          <li><a href="/auth/logout">Logout</a></li>
+        @endif
         <li><a href="{{action('ProdutoController@lista')}}">Listagem</a></li>
         <li><a href="{{action('ProdutoController@novo')}}">Novo</a></li>
       </ul>

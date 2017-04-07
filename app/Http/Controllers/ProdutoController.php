@@ -2,42 +2,49 @@
 
 namespace estoque\Http\Controllers;
 
-use Illuminate\Support\Facades\DB;
 use estoque\Produto;
 use estoque\Http\Requests\ProdutoRequest;
 use Request;
 
-class ProdutoController extends Controller {
+class ProdutoController extends Controller
+{
 
-    public function lista(){
+    public function __construct()
+    {
+        $this->middleware('auth', [
+            'only' => ['adiciona', 'remove']
+        ]);
+    }
 
+    public function lista()
+    {
         $produtos = Produto::all();
 
         return view('produto/listagem')->with([
-        	'produtos' => $produtos
+            'produtos' => $produtos,
         ]);
     }
 
     public function mostra()
     {
-    	$id = Request::route('id');
-    	$produto = Produto::find($id);
+        $id = Request::route('id');
+        $produto = Produto::find($id);
 
-    	if(empty($produto)) {
-			return "Esse produto não existe";
-		}
+        if (empty($produto)) {
+            return 'Esse produto não existe';
+        }
 
-    	return view ('produto/detalhes')->with('p', $produto);
+        return view('produto/detalhes')->with('p', $produto);
     }
 
     public function novo()
     {
-    	return view('produto/formulario');
+        return view('produto/formulario');
     }
 
     public function adiciona(ProdutoRequest $requrest)
     {
-        if(empty($request->input('id'))){
+        if (empty($request->input('id'))) {
             Produto::create($request->all());
         } else {
             $produto = Produto::find($request->input('id'));
@@ -48,7 +55,7 @@ class ProdutoController extends Controller {
             $produto->save();
         }
 
-    	return redirect()
+        return redirect()
             ->action('ProdutoController@lista')
             ->withInput(Request::only('nome'));
     }
@@ -56,6 +63,7 @@ class ProdutoController extends Controller {
     public function alterar()
     {
         $produto = Produto::find(Request::route('id'));
+
         return view('produto/formulario')
             ->with('p', $produto);
     }
@@ -71,7 +79,8 @@ class ProdutoController extends Controller {
 
     public function listaJson()
     {
-    	$produtos = Produto::all();
-    	return $produtos;
+        $produtos = Produto::all();
+
+        return $produtos;
     }
 }
