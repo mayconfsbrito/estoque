@@ -3,6 +3,7 @@
 namespace estoque\Http\Controllers;
 
 use estoque\Produto;
+use estoque\Categoria;
 use estoque\Http\Requests\ProdutoRequest;
 use Request;
 
@@ -11,9 +12,9 @@ class ProdutoController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth', [
-            'only' => ['adiciona', 'remove']
-        ]);
+        // $this->middleware('auth', [
+        //     'autorizacao' => ['adiciona', 'remove']
+        // ]);
     }
 
     public function lista()
@@ -39,10 +40,10 @@ class ProdutoController extends Controller
 
     public function novo()
     {
-        return view('produto/formulario');
+        return view('produto/formulario')->with('categorias', Categoria::all());
     }
 
-    public function adiciona(ProdutoRequest $requrest)
+    public function adiciona(ProdutoRequest $request)
     {
         if (empty($request->input('id'))) {
             Produto::create($request->all());

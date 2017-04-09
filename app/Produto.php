@@ -19,4 +19,8 @@ class Produto extends Model
 	protected $guarded = [
 		'id'
 	];
+
+	public function categoria(){
+		return $this->belongsTo('estoque\Categoria');
+	}
 }
